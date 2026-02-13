@@ -92,6 +92,9 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" ref={sectionRef} className="relative py-24 md:py-32 px-6">
+      <div className="floating-orb-accent w-64 h-64 top-10 -left-20" />
+      <div className="floating-orb w-48 h-48 bottom-10 right-0" />
+      <div className="section-divider absolute top-0 left-1/4 right-1/4" />
       <div className="max-w-7xl mx-auto">
         <div ref={headerRef} className="mb-12">
           <h2 className="text-3xl md:text-4xl font-extralight tracking-wide mb-2">
@@ -109,7 +112,7 @@ const ProjectsSection = () => {
           {projects.map((project, i) => (
             <div
               key={i}
-              className="project-card flex-shrink-0 w-[300px] md:w-auto snap-start glass rounded-xl overflow-hidden group hover:glow-box transition-all duration-500 hover:-translate-y-2"
+              className="project-card flex-shrink-0 w-[300px] md:w-auto snap-start glass rounded-xl overflow-hidden group hover:glow-box hover:border-primary/30 transition-all duration-500 hover:-translate-y-3"
             >
               <div className="relative overflow-hidden aspect-video">
                 <img
@@ -131,7 +134,8 @@ const ProjectsSection = () => {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-[10px] px-2.5 py-1 rounded-full border border-primary/20 text-primary/80 font-light tracking-wider"
+                      className="text-[10px] px-2.5 py-1 rounded-full border border-primary/25 text-primary font-light tracking-wider"
+                      style={{ boxShadow: '0 0 8px hsl(var(--primary) / 0.1)' }}
                     >
                       {tag}
                     </span>

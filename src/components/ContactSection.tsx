@@ -42,6 +42,9 @@ const ContactSection = () => {
 
   return (
     <section id="contact" ref={sectionRef} className="relative py-24 md:py-32 px-6">
+      <div className="floating-orb w-56 h-56 top-20 right-0" />
+      <div className="floating-orb-accent w-40 h-40 bottom-20 -left-10" />
+      <div className="section-divider absolute top-0 left-1/4 right-1/4" />
       <div className="max-w-2xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-extralight tracking-wide mb-2 text-center">
           Get In <span className="gradient-text font-light">Touch</span>
@@ -54,7 +57,7 @@ const ContactSection = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="glass rounded-2xl p-8 md:p-10 space-y-6"
+          className="glass rounded-2xl p-8 md:p-10 space-y-6 gradient-border"
         >
           <div className="form-field">
             <input
@@ -83,7 +86,11 @@ const ContactSection = () => {
           <div className="form-field">
             <button
               type="submit"
-              className="w-full py-3.5 rounded-lg font-medium text-sm tracking-wide text-primary-foreground bg-primary hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)] transition-all duration-500"
+              className="w-full py-3.5 rounded-lg font-medium text-sm tracking-wide text-primary-foreground transition-all duration-500"
+              style={{
+                background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
+                boxShadow: '0 0 25px hsl(var(--primary) / 0.3), 0 0 50px hsl(var(--accent) / 0.15)',
+              }}
             >
               {submitted ? "Message Sent! ✓" : "Send Message"}
             </button>

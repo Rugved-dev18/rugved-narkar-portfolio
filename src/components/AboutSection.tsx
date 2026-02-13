@@ -97,11 +97,15 @@ const AboutSection = () => {
       ref={sectionRef}
       className="relative py-24 md:py-32 px-6"
     >
+      {/* Section ambient glows */}
+      <div className="floating-orb w-72 h-72 -top-10 -right-20" />
+      <div className="floating-orb-accent w-48 h-48 bottom-0 left-0" />
+      <div className="section-divider absolute top-0 left-1/4 right-1/4" />
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         {/* Profile Image */}
         <div ref={imageRef} className="flex justify-center">
           <div className="relative group">
-            <div className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary/40 to-accent/30 blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+            <div className="absolute -inset-3 rounded-full blur-2xl opacity-50 group-hover:opacity-80 transition-opacity duration-500" style={{ background: 'linear-gradient(135deg, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.4), hsl(var(--glow-warm) / 0.3))' }} />
             <div className="relative w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-2 border-primary/20 group-hover:scale-105 group-hover:rotate-2 transition-all duration-700">
               <img
                 src={profileImg}
@@ -133,7 +137,7 @@ const AboutSection = () => {
             {skills.map((skill) => (
               <div
                 key={skill.name}
-                className="glass rounded-lg px-4 py-3 text-center hover:glow-box transition-all duration-300 cursor-default"
+                className="glass rounded-lg px-4 py-3 text-center hover:glow-box hover:border-primary/30 transition-all duration-500 cursor-default hover:-translate-y-1"
               >
                 <span className="text-xl mb-1 block">{skill.icon}</span>
                 <span className="text-xs font-light text-muted-foreground">
