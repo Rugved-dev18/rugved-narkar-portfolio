@@ -29,9 +29,10 @@ const Footer = () => {
   };
 
   return (
-    <footer ref={footerRef} className="relative border-t border-border/30 py-10 px-6">
-      {/* Ambient glow */}
-      <div className="floating-orb w-40 h-40 bottom-0 left-1/4 opacity-10" />
+    <footer ref={footerRef} className="relative py-10 px-6 overflow-hidden">
+      <div className="section-divider absolute top-0 left-0 right-0" />
+      <div className="floating-orb w-48 h-48 -bottom-10 left-1/4" />
+      <div className="floating-orb-accent w-32 h-32 -bottom-5 right-1/4" />
 
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <p className="text-sm text-muted-foreground font-light">

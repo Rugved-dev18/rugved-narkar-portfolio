@@ -65,13 +65,15 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-background/60" />
       </div>
 
-      {/* Light beam from top */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] light-beam pointer-events-none z-[1]" />
+      {/* Light beams */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[700px] light-beam pointer-events-none z-[1]" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[400px] pointer-events-none z-[1]" style={{ background: 'radial-gradient(ellipse at bottom left, hsl(270 80% 65% / 0.08), transparent 70%)' }} />
 
       {/* Floating orbs */}
-      <div className="hero-orb floating-orb w-64 h-64 -top-20 -right-20 bg-primary/10" />
-      <div className="hero-orb floating-orb w-48 h-48 bottom-20 -left-10 bg-accent/10" />
-      <div className="hero-orb floating-orb w-32 h-32 top-1/3 right-1/4 bg-primary/5" />
+      <div className="hero-orb floating-orb w-80 h-80 -top-20 -right-20" />
+      <div className="hero-orb floating-orb-accent w-56 h-56 bottom-20 -left-10" />
+      <div className="hero-orb floating-orb w-40 h-40 top-1/3 right-1/4" />
+      <div className="hero-orb floating-orb-accent w-32 h-32 bottom-1/3 left-1/3" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
@@ -100,7 +102,14 @@ const HeroSection = () => {
             e.preventDefault();
             document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="inline-block px-8 py-3.5 rounded-full font-medium text-sm tracking-wide text-primary-foreground bg-primary hover:shadow-[0_0_40px_hsl(var(--primary)/0.5)] transition-all duration-500 animate-pulse-glow opacity-0"
+          className="inline-block px-8 py-3.5 rounded-full font-medium text-sm tracking-wide text-primary-foreground opacity-0"
+          style={{
+            background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
+            boxShadow: '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)',
+            transition: 'all 0.5s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 50px hsl(var(--primary) / 0.6), 0 0 100px hsl(var(--accent) / 0.3)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)'; }}
         >
           Hire Me
         </a>

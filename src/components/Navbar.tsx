@@ -78,7 +78,7 @@ const Navbar = () => {
               e.preventDefault();
               handleNavClick("#contact");
             }}
-            className="px-5 py-2 text-sm font-medium rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-300 glow-border"
+            className="px-5 py-2 text-sm font-medium rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-300 glow-border gradient-border"
           >
             Hire Me
           </a>
