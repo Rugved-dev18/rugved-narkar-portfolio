@@ -3,6 +3,7 @@ import gsap from "gsap";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const welcomeRef = useRef<HTMLParagraphElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
@@ -11,9 +12,15 @@ const HeroSection = () => {
     const tl = gsap.timeline({ delay: 0.3 });
 
     tl.fromTo(
+      welcomeRef.current,
+      { opacity: 0, y: 30, letterSpacing: "0.1em" },
+      { opacity: 1, y: 0, letterSpacing: "0.5em", duration: 1, ease: "power3.out" }
+    )
+    .fromTo(
       headlineRef.current,
       { opacity: 0, y: 60, filter: "blur(10px)" },
-      { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" }
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" },
+      "-=0.5"
     )
       .fromTo(
         subtitleRef.current,
@@ -77,6 +84,12 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <p
+          ref={welcomeRef}
+          className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text"
+        >
+          Welcome To My World
+        </p>
         <h1
           ref={headlineRef}
           className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-tight leading-[1.1] mb-6 opacity-0"
