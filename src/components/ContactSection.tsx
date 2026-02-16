@@ -110,7 +110,7 @@ const ContactSection = () => {
             </svg>
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/rugved-narkar-22000b314"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)] transition-all duration-300"
