@@ -102,7 +102,7 @@ const HeroSection = () => {
 
         <p
           ref={subtitleRef}
-          className="text-lg md:text-xl text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0">
+          className="text-lg md:text-xl text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0 text-center">
 
           A passionate developer focused on building scalable backend systems and impactful web applications. I enjoy working with Go, exploring open source, and solving real-world problems through technology. Currently sharpening my skills while contributing in Open Source.
         </p>
