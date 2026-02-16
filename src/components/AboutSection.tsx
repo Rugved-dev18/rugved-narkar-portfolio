@@ -11,7 +11,10 @@ const skills = [
 { name: "JavaScript", icon: "⚡" },
 { name: "Go", icon: "🐹" },
 { name: "MongoDB", icon: "🍃" },
-{ name: "Vercel", icon: "▲" }];
+{ name: "Vercel", icon: "▲" },
+{ name: "Firebase", icon: "🔥" },
+{ name: "Markdown", icon: "📝" },
+{ name: "PowerShell", icon: "💻" }];
 
 
 const AboutSection = () => {
