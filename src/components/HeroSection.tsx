@@ -92,7 +92,7 @@ const HeroSection = () => {
         </p>
         <h1
           ref={headlineRef}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.1] mb-6 opacity-0 font-bold">
+          className="text-4xl sm:text-6xl lg:text-8xl tracking-tight leading-[1.1] mb-6 opacity-0 font-bold md:text-5xl">
 
           Hi, I'm{" "}
           <span className="gradient-text font-semibold">Rugved</span>
