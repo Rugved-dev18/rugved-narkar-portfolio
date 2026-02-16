@@ -15,25 +15,25 @@ const HeroSection = () => {
       welcomeRef.current,
       { opacity: 0, y: 30, letterSpacing: "0.1em" },
       { opacity: 1, y: 0, letterSpacing: "0.5em", duration: 1, ease: "power3.out" }
-    )
-    .fromTo(
+    ).
+    fromTo(
       headlineRef.current,
       { opacity: 0, y: 60, filter: "blur(10px)" },
       { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" },
       "-=0.5"
-    )
-      .fromTo(
-        subtitleRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
-        "-=0.5"
-      )
-      .fromTo(
-        ctaRef.current,
-        { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" },
-        "-=0.4"
-      );
+    ).
+    fromTo(
+      subtitleRef.current,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+      "-=0.5"
+    ).
+    fromTo(
+      ctaRef.current,
+      { opacity: 0, scale: 0.9 },
+      { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" },
+      "-=0.4"
+    );
 
     // Floating orbs
     gsap.utils.toArray<HTMLElement>(".hero-orb").forEach((orb) => {
@@ -43,7 +43,7 @@ const HeroSection = () => {
         repeat: -1,
         yoyo: true,
         ease: "power1.inOut",
-        delay: Math.random() * 2,
+        delay: Math.random() * 2
       });
     });
 
@@ -56,8 +56,8 @@ const HeroSection = () => {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
+      className="relative min-h-screen flex items-center justify-center overflow-hidden">
+
       {/* Spline 3D Background */}
       <div className="absolute inset-0 z-0">
         <iframe
@@ -66,8 +66,8 @@ const HeroSection = () => {
           width="100%"
           height="100%"
           className="absolute inset-0"
-          title="3D Background"
-        />
+          title="3D Background" />
+
         {/* Overlay for readability */}
         <div className="absolute inset-0 bg-background/60" />
       </div>
@@ -86,14 +86,14 @@ const HeroSection = () => {
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <p
           ref={welcomeRef}
-          className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text"
-        >
+          className="text-xs md:text-sm font-bold uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text">
+
           Welcome To My World
         </p>
         <h1
           ref={headlineRef}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-tight leading-[1.1] mb-6 opacity-0"
-        >
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.1] mb-6 opacity-0 font-bold">
+
           Hi, I'm{" "}
           <span className="gradient-text font-light">Rugved</span>
           <br />
@@ -102,8 +102,8 @@ const HeroSection = () => {
 
         <p
           ref={subtitleRef}
-          className="text-lg md:text-xl text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0"
-        >
+          className="text-lg md:text-xl text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0">
+
           Crafting immersive digital experiences with cutting-edge
           technologies and pixel-perfect precision.
         </p>
@@ -119,16 +119,16 @@ const HeroSection = () => {
           style={{
             background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
             boxShadow: '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)',
-            transition: 'all 0.5s ease',
+            transition: 'all 0.5s ease'
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 0 50px hsl(var(--primary) / 0.6), 0 0 100px hsl(var(--accent) / 0.3)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)'; }}
-        >
+          onMouseEnter={(e) => {e.currentTarget.style.boxShadow = '0 0 50px hsl(var(--primary) / 0.6), 0 0 100px hsl(var(--accent) / 0.3)';}}
+          onMouseLeave={(e) => {e.currentTarget.style.boxShadow = '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)';}}>
+
           Hire Me
         </a>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default HeroSection;
