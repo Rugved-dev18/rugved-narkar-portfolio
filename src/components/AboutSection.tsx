@@ -10,7 +10,7 @@ const skills = [
 { name: "CSS3", icon: "🎨" },
 { name: "JavaScript", icon: "⚡" },
 { name: "Go", icon: "🐹" },
-{ name: "GSAP", icon: "🎬" },
+{ name: "MongoDB", icon: "🍃" },
 { name: "TypeScript", icon: "📘" }];
 
 
