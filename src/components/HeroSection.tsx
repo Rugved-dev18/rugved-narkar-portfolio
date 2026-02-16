@@ -95,7 +95,7 @@ const HeroSection = () => {
           className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.1] mb-6 opacity-0 font-bold">
 
           Hi, I'm{" "}
-          <span className="gradient-text font-light">Rugved</span>
+          <span className="gradient-text font-semibold">Rugved</span>
           <br />
           <span className="text-foreground/90">Web Developer</span>
         </h1>
