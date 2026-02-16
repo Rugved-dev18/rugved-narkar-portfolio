@@ -86,7 +86,7 @@ const HeroSection = () => {
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <p
           ref={welcomeRef}
-          className="text-xs md:text-sm uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-mono font-extrabold">
+          className="text-xs uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-extrabold font-sans md:text-base">
 
           Welcome To My World
         </p>
