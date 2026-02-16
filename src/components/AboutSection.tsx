@@ -6,13 +6,13 @@ import profileImg from "@/assets/profile.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { name: "HTML5", icon: "🌐" },
-  { name: "CSS3", icon: "🎨" },
-  { name: "JavaScript", icon: "⚡" },
-  { name: "React", icon: "⚛️" },
-  { name: "GSAP", icon: "🎬" },
-  { name: "TypeScript", icon: "📘" },
-];
+{ name: "HTML5", icon: "🌐" },
+{ name: "CSS3", icon: "🎨" },
+{ name: "JavaScript", icon: "⚡" },
+{ name: "React", icon: "⚛️" },
+{ name: "GSAP", icon: "🎬" },
+{ name: "TypeScript", icon: "📘" }];
+
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -33,8 +33,8 @@ const AboutSection = () => {
             trigger: sectionRef.current,
             start: "top 80%",
             end: "top 50%",
-            toggleActions: "play none none none",
-          },
+            toggleActions: "play none none none"
+          }
         }
       );
 
@@ -48,8 +48,8 @@ const AboutSection = () => {
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 70%",
-          },
+            start: "top 70%"
+          }
         }
       );
 
@@ -63,8 +63,8 @@ const AboutSection = () => {
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 65%",
-          },
+            start: "top 65%"
+          }
         }
       );
 
@@ -81,8 +81,8 @@ const AboutSection = () => {
             ease: "back.out(1.7)",
             scrollTrigger: {
               trigger: skillsRef.current,
-              start: "top 80%",
-            },
+              start: "top 80%"
+            }
           }
         );
       }
@@ -95,8 +95,8 @@ const AboutSection = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-24 md:py-32 px-6"
-    >
+      className="relative py-24 md:py-32 px-6">
+
       {/* Section ambient glows */}
       <div className="floating-orb w-72 h-72 -top-10 -right-20" />
       <div className="floating-orb-accent w-48 h-48 bottom-0 left-0" />
@@ -110,8 +110,8 @@ const AboutSection = () => {
               <img
                 src={profileImg}
                 alt="Rugved - Web Developer"
-                className="w-full h-full object-cover object-top"
-              />
+                className="w-full h-full object-cover object-top" />
+
             </div>
           </div>
         </div>
@@ -123,33 +123,33 @@ const AboutSection = () => {
           </h2>
           <div className="w-12 h-[2px] bg-primary/50 mb-6" />
           <p className="text-muted-foreground font-light leading-relaxed mb-8">
-            I specialize in frontend development, crafting dynamic, visually
-            engaging, and highly responsive websites. With a strong foundation in
-            HTML, CSS, and JavaScript, I build modern web interfaces optimized
-            for performance and accessibility. My expertise extends to React,
-            GSAP, and Spline for creating interactive, immersive experiences.
+            I specialize in frontend development, crafting dynamic, visually engaging, and highly responsive websites. With a strong foundation in HTML, CSS, and JavaScript, I build modern web interfaces optimized for performance and accessibility. My expertise extends to Golang, MongoDB, and Spline for creating interactive, immersive experiences.
+          
+
+
+
           </p>
 
           <h3 className="text-sm font-medium tracking-widest text-primary/70 uppercase mb-4">
             Tech Stack
           </h3>
           <div ref={skillsRef} className="grid grid-cols-3 gap-3">
-            {skills.map((skill) => (
-              <div
-                key={skill.name}
-                className="glass rounded-lg px-4 py-3 text-center hover:glow-box hover:border-primary/30 transition-all duration-500 cursor-default hover:-translate-y-1"
-              >
+            {skills.map((skill) =>
+            <div
+              key={skill.name}
+              className="glass rounded-lg px-4 py-3 text-center hover:glow-box hover:border-primary/30 transition-all duration-500 cursor-default hover:-translate-y-1">
+
                 <span className="text-xl mb-1 block">{skill.icon}</span>
                 <span className="text-xs font-light text-muted-foreground">
                   {skill.name}
                 </span>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default AboutSection;
