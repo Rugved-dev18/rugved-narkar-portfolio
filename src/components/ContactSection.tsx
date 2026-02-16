@@ -100,7 +100,7 @@ const ContactSection = () => {
         {/* Socials */}
         <div className="flex justify-center gap-6 mt-10">
           <a
-            href="https://github.com"
+            href="https://github.com/Rugved-dev18"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)] transition-all duration-300"
