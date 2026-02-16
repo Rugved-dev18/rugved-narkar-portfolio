@@ -12,8 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "3D Interactive Web",
-    description: "Email platform for developers with Spline 3D integration",
+    title: "Samudra AI",
+    description: "An integrated web platform for the Indian marine community providing real-time ocean data, safety alerts, SOS features, and AI-powered insights for fishermen and marine researchers",
     image: project1,
     tags: ["React", "Spline", "Tailwind"],
   },
