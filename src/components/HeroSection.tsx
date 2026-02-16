@@ -104,8 +104,7 @@ const HeroSection = () => {
           ref={subtitleRef}
           className="text-lg md:text-xl text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0">
 
-          Crafting immersive digital experiences with cutting-edge
-          technologies and pixel-perfect precision.
+          A passionate developer focused on building scalable backend systems and impactful web applications. I enjoy working with Go, exploring open source, and solving real-world problems through technology. Currently sharpening my skills while contributing in Open Source.
         </p>
 
         <a
