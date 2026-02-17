@@ -15,7 +15,7 @@ const projects = [
     title: "Samudra AI",
     description: "An integrated web platform for the Indian marine community providing real-time ocean data, safety alerts, SOS features, and AI-powered insights for fishermen and marine researchers",
     image: project1,
-    tags: ["Html", "CSS 3", "Tailwind"],
+    tags: ["Html", "CSS 3", "Typescript"],
   },
   {
     title: "Gaming UI Platform",
