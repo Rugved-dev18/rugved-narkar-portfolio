@@ -18,7 +18,7 @@ const projects = [
     tags: ["Html", "CSS 3", "Typescript"],
   },
   {
-    title: "Gaming UI Platform",
+    title: "Care4Elder – Elder's Assistant App",
     description: "Next-level gaming interface with 3D character models",
     image: project2,
     tags: ["React", "Three.js", "GSAP"],
