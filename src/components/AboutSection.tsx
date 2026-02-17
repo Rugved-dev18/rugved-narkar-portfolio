@@ -100,11 +100,24 @@ const AboutSection = () => {
       ref={sectionRef}
       className="relative py-24 md:py-32 px-6">
 
+      {/* Spline 3D Background */}
+      <div className="absolute inset-0 z-0">
+        <iframe
+          src="https://my.spline.design/boxeshover-SWORFSeQLNazFo81kGbdezdd/"
+          frameBorder="0"
+          width="100%"
+          height="100%"
+          className="absolute inset-0"
+          title="3D Background"
+        />
+        <div className="absolute inset-0 bg-background/60" />
+      </div>
+
       {/* Section ambient glows */}
       <div className="floating-orb w-72 h-72 -top-10 -right-20" />
       <div className="floating-orb-accent w-48 h-48 bottom-0 left-0" />
       <div className="section-divider absolute top-0 left-1/4 right-1/4" />
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+      <div className="relative z-10 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         {/* Profile Image */}
         <div ref={imageRef} className="flex justify-center">
           <div className="relative group">
