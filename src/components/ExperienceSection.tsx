@@ -6,14 +6,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    role: "Frontend Developer",
-    organization: "Tech Innovators Inc.",
-    duration: "Jan 2024 – Present",
-    description:
-      "Building scalable web applications with modern frameworks. Led the redesign of the core dashboard, improving load times by 40% and user engagement by 25%.",
-    tags: ["React", "TypeScript", "Tailwind CSS", "GSAP"],
-  },
-  {
     role: "Open Source Contributor",
     organization: "Mozilla Firefox",
     duration: "Jun 2023 – Dec 2023",
