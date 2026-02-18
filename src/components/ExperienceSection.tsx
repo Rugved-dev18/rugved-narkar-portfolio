@@ -14,7 +14,7 @@ const experiences = [
     tags: ["JavaScript", "CSS", "Git", "Open Source"],
   },
   {
-    role: "Web Development Intern",
+    role: "Campus Ambassador Intern",
     organization: "Creative Studio Labs",
     duration: "Jan 2023 – May 2023",
     description:
