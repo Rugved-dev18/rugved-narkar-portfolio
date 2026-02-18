@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const experiences = [
   {
     role: "Open Source Contributor",
-    organization: "Mozilla Firefox",
+    organization: "Open Source Connect India",
     duration: "Jun 2023 – Dec 2023",
     description:
       "Contributed to the Firefox DevTools project, fixing accessibility bugs and improving the network inspector UI for better developer experience.",
