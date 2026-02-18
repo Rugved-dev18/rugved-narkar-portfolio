@@ -10,7 +10,7 @@ const experiences = [
     organization: "Open Source Connect India",
     duration: "Dec 2025 – Present",
     description:
-      "Contributed to the Firefox DevTools project, fixing accessibility bugs and improving the network inspector UI for better developer experience.",
+      "Contributed to the Various DevTools project, fixing accessibility bugs and improving the network inspector UI for better developer experience.",
     tags: ["JavaScript", "CSS", "Git", "Open Source"],
   },
   {
