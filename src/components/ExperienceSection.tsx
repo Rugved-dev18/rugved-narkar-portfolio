@@ -15,7 +15,7 @@ const experiences = [
   },
   {
     role: "Campus Ambassador Intern",
-    organization: "Creative Studio Labs",
+    organization: "IIT Bombay - Techfest",
     duration: "Jan 2023 – May 2023",
     description:
       "Developed interactive landing pages and marketing websites. Implemented scroll-based animations and responsive layouts for client projects.",
