@@ -19,7 +19,7 @@ const experiences = [
     duration: "Jan 2023 – May 2023",
     description:
       "Developed interactive landing pages and marketing websites. Implemented scroll-based animations and responsive layouts for client projects.",
-    tags: ["HTML", "CSS", "JavaScript", "Figma"],
+    tags: ["HTML", "CSS", "JavaScript", "Adobe Photoshop"],
   },
   {
     role: "Freelance Developer",
