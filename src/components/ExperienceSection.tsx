@@ -26,7 +26,7 @@ const experiences = [
     organization: "Eduveda Academy",
     duration: "2022 – 2023",
     description:
-      "Delivered custom web solutions for small businesses including e-commerce stores, portfolios, and booking systems with a focus on performance.",
+      "Worked as a Marketing Intern at EduVeda Academy, where I contributed to digital marketing campaigns, content creation, and social media management. Assisted in promoting courses, engaging with students online, and analyzing campaign performance to improve outreach and brand visibility. Gained hands-on experience in strategic marketing and audience engagement.",
     tags: ["Sales", "Node.js", "MongoDB", "Stripe"],
   },
 ];
