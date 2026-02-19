@@ -16,7 +16,7 @@ const experiences = [
   {
     role: "Campus Ambassador Intern",
     organization: "IIT Bombay - Techfest",
-    duration: "Jan 2023 – May 2023",
+    duration: "Jul 2025 – Nov 2025",
     description:
       "Represented IIT Bombay's Techfest at my campus by promoting events, managing outreach campaigns, increasing student engagement, and coordinating registrations through strategic marketing and peer networking",
     tags: ["HTML", "CSS", "JavaScript", "Adobe Photoshop"],
