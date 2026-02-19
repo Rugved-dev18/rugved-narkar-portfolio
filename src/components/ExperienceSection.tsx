@@ -24,7 +24,7 @@ const experiences = [
   {
     role: "Marketing Intern",
     organization: "Eduveda Academy",
-    duration: "2022 – 2023",
+    duration: "Jun 2025 – Jul 2025",
     description:
       "Worked as a Marketing Intern at EduVeda Academy, where I contributed to digital marketing campaigns, content creation, and social media management. Assisted in promoting courses, engaging with students online, and analyzing campaign performance to improve outreach and brand visibility. Gained hands-on experience in strategic marketing and audience engagement.",
     tags: ["Sales", "Advertising", "Student Services"],
