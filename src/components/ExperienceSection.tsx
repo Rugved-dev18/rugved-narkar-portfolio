@@ -18,7 +18,7 @@ const experiences = [
     organization: "IIT Bombay - Techfest",
     duration: "Jan 2023 – May 2023",
     description:
-      "Developed interactive landing pages and marketing websites. Implemented scroll-based animations and responsive layouts for client projects.",
+      "Represented IIT Bombay's Techfest at my campus by promoting events, managing outreach campaigns, increasing student engagement, and coordinating registrations through strategic marketing and peer networking",
     tags: ["HTML", "CSS", "JavaScript", "Adobe Photoshop"],
   },
   {
