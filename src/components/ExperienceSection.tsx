@@ -22,7 +22,7 @@ const experiences = [
     tags: ["HTML", "CSS", "JavaScript", "Adobe Photoshop"],
   },
   {
-    role: "Freelance Developer",
+    role: "Marketing Intern",
     organization: "Self-Employed",
     duration: "2022 – 2023",
     description:
