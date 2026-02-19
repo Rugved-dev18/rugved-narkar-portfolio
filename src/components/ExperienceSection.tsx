@@ -23,7 +23,7 @@ const experiences = [
   },
   {
     role: "Marketing Intern",
-    organization: "Self-Employed",
+    organization: "Eduveda Academy",
     duration: "2022 – 2023",
     description:
       "Delivered custom web solutions for small businesses including e-commerce stores, portfolios, and booking systems with a focus on performance.",
