@@ -27,7 +27,7 @@ const experiences = [
     duration: "2022 – 2023",
     description:
       "Delivered custom web solutions for small businesses including e-commerce stores, portfolios, and booking systems with a focus on performance.",
-    tags: ["React", "Node.js", "MongoDB", "Stripe"],
+    tags: ["Sales", "Node.js", "MongoDB", "Stripe"],
   },
 ];
 
