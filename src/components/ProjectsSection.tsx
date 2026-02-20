@@ -23,6 +23,7 @@ const projects = [
     description: "Care4Elders is a compassionate support initiative dedicated to providing care, assistance, and well-being services for senior citizens, ensuring they live safely, comfortably, and with dignity.",
     image: project2,
     tags: ["CSS 3", "Typescript", "API"],
+    link: "https://care4elders-phi.vercel.app/",
   },
   {
     title: "3D Portfolio",
