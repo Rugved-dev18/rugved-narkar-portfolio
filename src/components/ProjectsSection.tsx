@@ -21,7 +21,7 @@ const projects = [
     title: "Care4Elder – Elder's Assistant App",
     description: "Care4Elders is a compassionate support initiative dedicated to providing care, assistance, and well-being services for senior citizens, ensuring they live safely, comfortably, and with dignity.",
     image: project2,
-    tags: ["React", "Three.js", "GSAP"],
+    tags: ["CSS 3", "Three.js", "GSAP"],
   },
   {
     title: "3D Portfolio",
