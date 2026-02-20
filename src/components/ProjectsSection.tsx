@@ -16,6 +16,7 @@ const projects = [
     description: "An integrated web platform for the Indian marine community providing real-time ocean data, safety alerts, SOS features, and AI-powered insights for fishermen and marine researchers",
     image: project1,
     tags: ["Html", "CSS 3", "Typescript"],
+    link: "https://samudra-india.vercel.app/",
   },
   {
     title: "Care4Elder – Elder's Assistant App",
@@ -109,41 +110,46 @@ const ProjectsSection = () => {
           className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 md:overflow-visible"
           style={{ scrollbarWidth: "none" }}
         >
-          {projects.map((project, i) => (
-            <div
-              key={i}
-              className="project-card flex-shrink-0 w-[300px] md:w-auto snap-start glass rounded-xl overflow-hidden group hover:glow-box hover:border-primary/30 transition-all duration-500 hover:-translate-y-3"
-            >
-              <div className="relative overflow-hidden aspect-video">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-              </div>
-              <div className="p-5">
-                <h3 className="text-lg font-medium mb-1 text-foreground">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-muted-foreground font-light mb-3">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] px-2.5 py-1 rounded-full border border-primary/25 text-primary font-light tracking-wider"
-                      style={{ boxShadow: '0 0 8px hsl(var(--primary) / 0.1)' }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
+          {projects.map((project, i) => {
+            const CardWrapper = project.link ? 'a' : 'div';
+            const wrapperProps = project.link ? { href: project.link, target: "_blank", rel: "noopener noreferrer" } : {};
+            return (
+              <CardWrapper
+                key={i}
+                {...wrapperProps}
+                className="project-card flex-shrink-0 w-[300px] md:w-auto snap-start glass rounded-xl overflow-hidden group hover:glow-box hover:border-primary/30 transition-all duration-500 hover:-translate-y-3 cursor-pointer no-underline"
+              >
+                <div className="relative overflow-hidden aspect-video">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                 </div>
-              </div>
-            </div>
-          ))}
+                <div className="p-5">
+                  <h3 className="text-lg font-medium mb-1 text-foreground">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground font-light mb-3">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] px-2.5 py-1 rounded-full border border-primary/25 text-primary font-light tracking-wider"
+                        style={{ boxShadow: '0 0 8px hsl(var(--primary) / 0.1)' }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </CardWrapper>
+            );
+          })}
         </div>
       </div>
     </section>
