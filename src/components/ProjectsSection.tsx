@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import project1 from "@/assets/samudra-ai.jpg";
 import project2 from "@/assets/care4elders.png";
-import project3 from "@/assets/project-3.png";
+import project3 from "@/assets/portfolio-3d.png";
 import project4 from "@/assets/project-4.png";
 import project5 from "@/assets/project-5.png";
 import project6 from "@/assets/project-6.png";
