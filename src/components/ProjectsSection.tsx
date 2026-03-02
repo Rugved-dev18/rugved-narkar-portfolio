@@ -127,7 +127,7 @@ const ProjectsSection = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+                  
                 </div>
                 <div className="p-5">
                   <h3 className="text-lg font-medium mb-1 text-foreground">
