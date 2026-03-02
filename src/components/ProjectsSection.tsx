@@ -6,7 +6,7 @@ import project2 from "@/assets/care4elders.png";
 import project3 from "@/assets/portfolio-3d.png";
 import project4 from "@/assets/project-4.png";
 import project5 from "@/assets/project-5.png";
-import project6 from "@/assets/project-6.png";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,12 +42,6 @@ const projects = [
     description: "Web animation toolkit showcase with smooth interactions",
     image: project5,
     tags: ["GSAP", "Spline", "React"],
-  },
-  {
-    title: "Animated Portfolio",
-    description: "Step-by-step animated portfolio with parallax effects",
-    image: project6,
-    tags: ["CSS", "JS", "GSAP"],
   },
 ];
 
