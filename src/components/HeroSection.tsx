@@ -107,13 +107,13 @@ const HeroSection = () => {
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <p
           ref={welcomeRef}
-          className="text-xs uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-extrabold font-sans md:text-base">
+          className="text-[10px] uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-extrabold font-sans md:text-sm">
 
           Welcome To My World
         </p>
         <h1
           ref={headlineRef}
-          className="text-4xl sm:text-6xl lg:text-8xl tracking-tight leading-[1.1] mb-6 opacity-0 font-bold md:text-5xl">
+          className="text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-[1.1] mb-6 opacity-0 font-bold md:text-4xl">
 
           Hi, I'm{" "}
           <span className="gradient-text font-semibold">Rugved</span>
@@ -123,7 +123,7 @@ const HeroSection = () => {
 
         <p
           ref={subtitleRef}
-          className="text-lg md:text-xl text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0 text-center">
+          className="text-base md:text-lg text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0 text-center">
 
           A passionate developer focused on building scalable backend systems and impactful web applications. I enjoy working with Go, exploring open source, and solving real-world problems through technology. Currently sharpening my skills while contributing in Open Source.
         </p>
@@ -135,7 +135,7 @@ const HeroSection = () => {
             e.preventDefault();
             document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="inline-block px-8 py-3.5 rounded-full font-medium text-sm tracking-wide text-primary-foreground opacity-0"
+          className="inline-block px-8 py-3.5 rounded-full font-medium text-xs tracking-wide text-primary-foreground opacity-0"
           style={{
             background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
             boxShadow: '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)',
