@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import Preloader from "@/components/Preloader";
+import FoggyCursor from "@/components/FoggyCursor";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -17,6 +18,7 @@ const Index = () => {
 
   return (
     <>
+      <FoggyCursor />
       <Preloader onComplete={handleLoadComplete} />
 
       <div
