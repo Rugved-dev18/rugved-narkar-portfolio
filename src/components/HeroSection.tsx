@@ -6,7 +6,7 @@ const HeroSection = () => {
   const welcomeRef = useRef<HTMLParagraphElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.3 });
@@ -128,24 +128,35 @@ const HeroSection = () => {
           A passionate developer focused on building scalable backend systems and impactful web applications. I enjoy working with Go, exploring open source, and solving real-world problems through technology. Currently sharpening my skills while contributing in Open Source.
         </p>
 
-        <a
-          ref={ctaRef}
-          href="#contact"
-          onClick={(e) => {
-            e.preventDefault();
-            document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-          }}
-          className="inline-block px-8 py-3.5 rounded-full font-medium text-xs tracking-wide text-primary-foreground opacity-0"
-          style={{
-            background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
-            boxShadow: '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)',
-            transition: 'all 0.5s ease'
-          }}
-          onMouseEnter={(e) => {e.currentTarget.style.boxShadow = '0 0 50px hsl(var(--primary) / 0.6), 0 0 100px hsl(var(--accent) / 0.3)';}}
-          onMouseLeave={(e) => {e.currentTarget.style.boxShadow = '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)';}}>
-
-          Hire Me
-        </a>
+        <div ref={ctaRef} className="flex items-center justify-center gap-4 opacity-0">
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="inline-block px-8 py-3.5 rounded-full font-medium text-xs tracking-wide text-primary-foreground"
+            style={{
+              background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
+              boxShadow: '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)',
+              transition: 'all 0.5s ease'
+            }}
+            onMouseEnter={(e) => {e.currentTarget.style.boxShadow = '0 0 50px hsl(var(--primary) / 0.6), 0 0 100px hsl(var(--accent) / 0.3)';}}
+            onMouseLeave={(e) => {e.currentTarget.style.boxShadow = '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)';}}
+          >
+            Hire Me
+          </a>
+          <a
+            href="#projects"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="inline-block px-8 py-3.5 rounded-full font-medium text-xs tracking-wide border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-300"
+          >
+            View My Work
+          </a>
+        </div>
       </div>
     </section>);
 
