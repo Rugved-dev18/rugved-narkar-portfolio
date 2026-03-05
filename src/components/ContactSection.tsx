@@ -109,7 +109,7 @@ const ContactSection = () => {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="https://drive.google.com/file/d/1javd8u0-1RlqIJnAVXz7BiMDrBAp5DOn/view?usp=drivesdk"
+                href="https://drive.google.com/uc?export=download&id=1javd8u0-1RlqIJnAVXz7BiMDrBAp5DOn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-sm tracking-wide text-primary-foreground transition-all duration-500"

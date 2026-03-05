@@ -124,6 +124,7 @@
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+    pointer-events: none;
   }
 
   .light-beam {
@@ -131,13 +132,13 @@
   }
 
   .floating-orb {
-    @apply absolute rounded-full blur-3xl;
+    @apply absolute rounded-full blur-3xl pointer-events-none;
     background: radial-gradient(circle, hsl(var(--primary) / 0.5), transparent 70%);
     opacity: 0.25;
   }
 
   .floating-orb-accent {
-    @apply absolute rounded-full blur-3xl;
+    @apply absolute rounded-full blur-3xl pointer-events-none;
     background: radial-gradient(circle, hsl(var(--accent) / 0.5), transparent 70%);
     opacity: 0.2;
   }
