@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import emailjs from "@emailjs/browser";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -8,6 +9,7 @@ const ContactSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -30,14 +32,31 @@ const ContactSection = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const btn = formRef.current?.querySelector("button[type='submit']");
-    if (btn) {
-      gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.15, yoyo: true, repeat: 1 });
+    if (sending) return;
+    setSending(true);
+
+    try {
+      await emailjs.sendForm(
+        "service_jisqb4f",
+        "template_tv34ruh",
+        formRef.current!,
+        "h7FNfMegGcHcF6Z-I"
+      );
+      const btn = formRef.current?.querySelector("button[type='submit']");
+      if (btn) {
+        gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.15, yoyo: true, repeat: 1 });
+      }
+      setSubmitted(true);
+      formRef.current?.reset();
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
     }
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
@@ -157,6 +176,7 @@ const ContactSection = () => {
             <div className="form-field">
               <input
                 type="text"
+                name="from_name"
                 placeholder="Your Name"
                 required
                 className="w-full bg-secondary/50 border border-border/50 rounded-lg px-4 py-3 text-sm font-light text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 focus:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-300"
@@ -165,6 +185,7 @@ const ContactSection = () => {
             <div className="form-field">
               <input
                 type="email"
+                name="from_email"
                 placeholder="Your Email"
                 required
                 className="w-full bg-secondary/50 border border-border/50 rounded-lg px-4 py-3 text-sm font-light text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 focus:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-300"
@@ -172,6 +193,7 @@ const ContactSection = () => {
             </div>
             <div className="form-field">
               <textarea
+                name="message"
                 placeholder="Your Message"
                 rows={5}
                 required
@@ -186,8 +208,9 @@ const ContactSection = () => {
                   background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
                   boxShadow: '0 0 25px hsl(var(--primary) / 0.3), 0 0 50px hsl(var(--accent) / 0.15)',
                 }}
+                disabled={sending}
               >
-                {submitted ? "Message Sent! ✓" : "Send Message"}
+                {submitted ? "Message Sent! ✓" : sending ? "Sending..." : "Send Message"}
               </button>
             </div>
           </form>
