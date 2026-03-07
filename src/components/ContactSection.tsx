@@ -32,14 +32,31 @@ const ContactSection = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const btn = formRef.current?.querySelector("button[type='submit']");
-    if (btn) {
-      gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.15, yoyo: true, repeat: 1 });
+    if (sending) return;
+    setSending(true);
+
+    try {
+      await emailjs.sendForm(
+        "service_jisqb4f",
+        "template_tv34ruh",
+        formRef.current!,
+        "h7FNfMegGcHcF6Z-I"
+      );
+      const btn = formRef.current?.querySelector("button[type='submit']");
+      if (btn) {
+        gsap.fromTo(btn, { scale: 1 }, { scale: 1.05, duration: 0.15, yoyo: true, repeat: 1 });
+      }
+      setSubmitted(true);
+      formRef.current?.reset();
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
     }
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
