@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import GitHubActivitySection from "@/components/GitHubActivitySection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
