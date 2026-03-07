@@ -33,6 +33,7 @@ const Index = () => {
           <AboutSection />
           <ExperienceSection />
           <ProjectsSection />
+          <GitHubActivitySection />
           <ContactSection />
         </main>
         <Footer />
