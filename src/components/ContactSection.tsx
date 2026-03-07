@@ -208,8 +208,9 @@ const ContactSection = () => {
                   background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
                   boxShadow: '0 0 25px hsl(var(--primary) / 0.3), 0 0 50px hsl(var(--accent) / 0.15)',
                 }}
+                disabled={sending}
               >
-                {submitted ? "Message Sent! ✓" : "Send Message"}
+                {submitted ? "Message Sent! ✓" : sending ? "Sending..." : "Send Message"}
               </button>
             </div>
           </form>
