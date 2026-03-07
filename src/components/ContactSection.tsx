@@ -176,6 +176,7 @@ const ContactSection = () => {
             <div className="form-field">
               <input
                 type="text"
+                name="from_name"
                 placeholder="Your Name"
                 required
                 className="w-full bg-secondary/50 border border-border/50 rounded-lg px-4 py-3 text-sm font-light text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 focus:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-300"
@@ -184,6 +185,7 @@ const ContactSection = () => {
             <div className="form-field">
               <input
                 type="email"
+                name="from_email"
                 placeholder="Your Email"
                 required
                 className="w-full bg-secondary/50 border border-border/50 rounded-lg px-4 py-3 text-sm font-light text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary/50 focus:shadow-[0_0_20px_hsl(var(--primary)/0.15)] transition-all duration-300"
@@ -191,6 +193,7 @@ const ContactSection = () => {
             </div>
             <div className="form-field">
               <textarea
+                name="message"
                 placeholder="Your Message"
                 rows={5}
                 required
