@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,15 +9,15 @@ const GITHUB_USERNAME = "Rugved-dev18";
 const cards = [
   {
     title: "GitHub Stats",
-    src: `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=transparent&hide_border=true&title_color=00d4ff&text_color=c0c8e0&icon_color=a855f7&bg_color=00000000&ring_color=00d4ff`,
+    src: `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=transparent&hide_border=true&title_color=00d4ff&text_color=c0c8e0&icon_color=a855f7&bg_color=00000000&ring_color=00d4ff&cache_seconds=1800`,
   },
   {
     title: "Top Languages",
-    src: `https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&theme=transparent&hide_border=true&title_color=00d4ff&text_color=c0c8e0&bg_color=00000000`,
+    src: `https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&theme=transparent&hide_border=true&title_color=00d4ff&text_color=c0c8e0&bg_color=00000000&cache_seconds=1800`,
   },
   {
     title: "Contribution Streak",
-    src: `https://github-readme-streak-stats.herokuapp.com/?user=${GITHUB_USERNAME}&theme=transparent&hide_border=true&ring=00d4ff&fire=a855f7&currStreakLabel=00d4ff&sideLabels=c0c8e0&dates=64748b&currStreakNum=c0c8e0&sideNums=c0c8e0&stroke=1e293b&background=00000000`,
+    src: `https://streak-stats.demolab.com/?user=${GITHUB_USERNAME}&theme=transparent&hide_border=true&ring=00d4ff&fire=a855f7&currStreakLabel=00d4ff&sideLabels=c0c8e0&dates=64748b&currStreakNum=c0c8e0&sideNums=c0c8e0&stroke=1e293b&background=00000000`,
   },
   {
     title: "Activity Graph",
@@ -25,6 +25,53 @@ const cards = [
     wide: true,
   },
 ];
+
+const GitHubCard = ({ card }: { card: typeof cards[0] }) => {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
+  return (
+    <div
+      className={`github-card glass rounded-2xl p-4 gradient-border group hover:scale-[1.02] transition-transform duration-500 ${
+        (card as any).wide ? "md:col-span-2 lg:col-span-3" : ""
+      }`}
+      style={{
+        boxShadow:
+          "0 0 20px hsl(var(--primary) / 0.1), 0 0 60px hsl(var(--primary) / 0.05)",
+      }}
+    >
+      <div className="overflow-hidden rounded-xl min-h-[120px] flex items-center justify-center">
+        {!loaded && !error && (
+          <div className="animate-pulse text-muted-foreground text-sm font-light">
+            Loading {card.title}...
+          </div>
+        )}
+        {error && (
+          <div className="text-muted-foreground text-sm font-light">
+            <a
+              href={`https://github.com/${GITHUB_USERNAME}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              View on GitHub →
+            </a>
+          </div>
+        )}
+        <img
+          src={card.src}
+          alt={card.title}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
+          className={`w-full h-auto transition-opacity duration-500 ${
+            loaded ? "opacity-100" : "opacity-0 absolute"
+          }`}
+        />
+      </div>
+    </div>
+  );
+};
 
 const GitHubActivitySection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -76,25 +123,7 @@ const GitHubActivitySection = () => {
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cards.map((card) => (
-            <div
-              key={card.title}
-              className={`github-card glass rounded-2xl p-4 gradient-border group hover:scale-[1.02] transition-transform duration-500 ${
-                card.wide ? "md:col-span-2 lg:col-span-3" : ""
-              }`}
-              style={{
-                boxShadow:
-                  "0 0 20px hsl(var(--primary) / 0.1), 0 0 60px hsl(var(--primary) / 0.05)",
-              }}
-            >
-              <div className="overflow-hidden rounded-xl">
-                <img
-                  src={card.src}
-                  alt={card.title}
-                  loading="lazy"
-                  className="w-full h-auto"
-                />
-              </div>
-            </div>
+            <GitHubCard key={card.title} card={card} />
           ))}
         </div>
       </div>
