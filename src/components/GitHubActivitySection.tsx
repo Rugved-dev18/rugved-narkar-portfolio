@@ -145,10 +145,19 @@ const GitHubActivitySection = () => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        const [userRes, reposRes, eventsRes] = await Promise.all([
+        // Fetch multiple pages of events for better contribution data
+        const eventPages = await Promise.all(
+          [1, 2, 3].map(page =>
+            fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100&page=${page}`)
+              .then(r => r.json())
+              .catch(() => [])
+          )
+        );
+        const events = eventPages.flat();
+
+        const [userRes, reposRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`),
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100`),
         ]);
 
         const user = await userRes.json();
