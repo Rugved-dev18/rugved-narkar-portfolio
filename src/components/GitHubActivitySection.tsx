@@ -46,13 +46,15 @@ const GitHubActivitySection = () => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        const [userRes, reposRes] = await Promise.all([
+        const [userRes, reposRes, eventsRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`),
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100`),
         ]);
 
         const user = await userRes.json();
         const repos = await reposRes.json();
+        const events = await eventsRes.json();
 
         if (!Array.isArray(repos)) {
           setLoading(false);
@@ -61,7 +63,6 @@ const GitHubActivitySection = () => {
 
         const totalStars = repos.reduce((sum: number, r: any) => sum + (r.stargazers_count || 0), 0);
 
-        // Count languages
         const langMap: Record<string, number> = {};
         repos.forEach((r: any) => {
           if (r.language) {
@@ -89,6 +90,25 @@ const GitHubActivitySection = () => {
             url: r.html_url,
           }));
 
+        // Build contribution map from events
+        const contributionMap: Record<string, number> = {};
+        // Initialize last 365 days
+        const today = new Date();
+        for (let i = 364; i >= 0; i--) {
+          const d = new Date(today);
+          d.setDate(d.getDate() - i);
+          const key = d.toISOString().split("T")[0];
+          contributionMap[key] = 0;
+        }
+        if (Array.isArray(events)) {
+          events.forEach((e: any) => {
+            const day = e.created_at?.split("T")[0];
+            if (day && day in contributionMap) {
+              contributionMap[day] = (contributionMap[day] || 0) + 1;
+            }
+          });
+        }
+
         setStats({
           publicRepos: user.public_repos,
           followers: user.followers,
@@ -96,6 +116,7 @@ const GitHubActivitySection = () => {
           totalStars,
           topLanguages,
           recentRepos,
+          contributionMap,
         });
       } catch (err) {
         console.error("GitHub API error:", err);
