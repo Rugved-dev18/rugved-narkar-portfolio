@@ -37,6 +37,100 @@ const LANG_COLORS: Record<string, string> = {
   "Jupyter Notebook": "#DA5B0B",
 };
 
+const ContributionGraph = ({ data }: { data: Record<string, number> }) => {
+  const days = Object.entries(data).sort(([a], [b]) => a.localeCompare(b));
+  const maxCount = Math.max(...days.map(([, c]) => c), 1);
+
+  const getColor = (count: number) => {
+    if (count === 0) return "hsl(var(--secondary))";
+    const intensity = Math.min(count / maxCount, 1);
+    if (intensity <= 0.25) return "hsl(192 100% 50% / 0.25)";
+    if (intensity <= 0.5) return "hsl(192 100% 50% / 0.45)";
+    if (intensity <= 0.75) return "hsl(192 100% 50% / 0.7)";
+    return "hsl(192 100% 50% / 1)";
+  };
+
+  // Group by weeks (columns of 7 days)
+  const weeks: [string, number][][] = [];
+  // Start from the first Sunday on or before the first day
+  const firstDate = new Date(days[0][0]);
+  const startDay = firstDate.getDay();
+  // Pad beginning
+  const padded: [string, number][] = [];
+  for (let i = 0; i < startDay; i++) {
+    padded.push(["", -1]);
+  }
+  padded.push(...days);
+
+  for (let i = 0; i < padded.length; i += 7) {
+    weeks.push(padded.slice(i, i + 7));
+  }
+
+  const monthLabels: { label: string; col: number }[] = [];
+  let lastMonth = "";
+  weeks.forEach((week, wi) => {
+    const validDay = week.find(([d]) => d !== "");
+    if (validDay) {
+      const m = new Date(validDay[0]).toLocaleString("en", { month: "short" });
+      if (m !== lastMonth) {
+        monthLabels.push({ label: m, col: wi });
+        lastMonth = m;
+      }
+    }
+  });
+
+  return (
+    <div className="overflow-x-auto">
+      <div className="min-w-[720px]">
+        {/* Month labels */}
+        <div className="flex mb-1 ml-8 text-[10px] text-muted-foreground font-light">
+          {monthLabels.map((m, i) => (
+            <span
+              key={i}
+              style={{ position: "absolute", left: `${m.col * 14 + 32}px` }}
+              className="relative"
+            >
+              {m.label}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-[3px] mt-5 relative">
+          {/* Day labels */}
+          <div className="flex flex-col gap-[3px] text-[10px] text-muted-foreground font-light pr-1 pt-0">
+            {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
+              <div key={i} className="h-[11px] flex items-center">{d}</div>
+            ))}
+          </div>
+          {weeks.map((week, wi) => (
+            <div key={wi} className="flex flex-col gap-[3px]">
+              {week.map(([date, count], di) => (
+                <div
+                  key={di}
+                  className="w-[11px] h-[11px] rounded-[2px] transition-colors duration-200 hover:ring-1 hover:ring-primary/50"
+                  style={{ backgroundColor: count < 0 ? "transparent" : getColor(count) }}
+                  title={date ? `${date}: ${count} contribution${count !== 1 ? "s" : ""}` : ""}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        {/* Legend */}
+        <div className="flex items-center gap-2 mt-4 justify-end text-[10px] text-muted-foreground font-light">
+          <span>Less</span>
+          {[0, 0.25, 0.5, 0.75, 1].map((level, i) => (
+            <div
+              key={i}
+              className="w-[11px] h-[11px] rounded-[2px]"
+              style={{ backgroundColor: getColor(level === 0 ? 0 : Math.ceil(level * maxCount)) }}
+            />
+          ))}
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const GitHubActivitySection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
