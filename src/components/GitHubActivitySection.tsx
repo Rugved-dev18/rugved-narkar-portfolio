@@ -79,22 +79,27 @@ const ContributionGraph = ({ data }: { data: Record<string, number> }) => {
     }
   });
 
+  const totalContributions = days.reduce((sum, [, c]) => sum + c, 0);
+
   return (
     <div className="overflow-x-auto">
       <div className="min-w-[720px]">
+        {/* Total contributions */}
+        <div className="mb-4 text-sm text-muted-foreground font-light">
+          <span className="text-foreground font-medium text-lg">{totalContributions}</span> contributions in the last year
+        </div>
         {/* Month labels */}
-        <div className="flex mb-1 ml-8 text-[10px] text-muted-foreground font-light">
+        <div className="flex mb-1 ml-8 text-[10px] text-muted-foreground font-light relative h-4">
           {monthLabels.map((m, i) => (
             <span
               key={i}
-              style={{ position: "absolute", left: `${m.col * 14 + 32}px` }}
-              className="relative"
+              style={{ position: "absolute", left: `${m.col * 14}px` }}
             >
               {m.label}
             </span>
           ))}
         </div>
-        <div className="flex gap-[3px] mt-5 relative">
+        <div className="flex gap-[3px] mt-1 relative">
           {/* Day labels */}
           <div className="flex flex-col gap-[3px] text-[10px] text-muted-foreground font-light pr-1 pt-0">
             {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
