@@ -145,24 +145,15 @@ const GitHubActivitySection = () => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        // Fetch multiple pages of events for better contribution data
-        const eventPages = await Promise.all(
-          [1, 2, 3].map(page =>
-            fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100&page=${page}`)
-              .then(r => r.json())
-              .catch(() => [])
-          )
-        );
-        const events = eventPages.flat();
-
-        const [userRes, reposRes] = await Promise.all([
+        // Fetch real contribution data, user info, and repos in parallel
+        const [userRes, reposRes, contribRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`),
+          fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`).catch(() => null),
         ]);
 
         const user = await userRes.json();
         const repos = await reposRes.json();
-        
 
         if (!Array.isArray(repos)) {
           setLoading(false);
@@ -198,23 +189,26 @@ const GitHubActivitySection = () => {
             url: r.html_url,
           }));
 
-        // Build contribution map from events
+        // Build contribution map from real GitHub contribution data
         const contributionMap: Record<string, number> = {};
-        // Initialize last 365 days
         const today = new Date();
+        // Initialize last 365 days
         for (let i = 364; i >= 0; i--) {
           const d = new Date(today);
           d.setDate(d.getDate() - i);
           const key = d.toISOString().split("T")[0];
           contributionMap[key] = 0;
         }
-        if (Array.isArray(events)) {
-          events.forEach((e: any) => {
-            const day = e.created_at?.split("T")[0];
-            if (day && day in contributionMap) {
-              contributionMap[day] = (contributionMap[day] || 0) + 1;
-            }
-          });
+
+        if (contribRes && contribRes.ok) {
+          const contribData = await contribRes.json();
+          if (contribData.contributions && Array.isArray(contribData.contributions)) {
+            contribData.contributions.forEach((c: { date: string; count: number }) => {
+              if (c.date in contributionMap) {
+                contributionMap[c.date] = c.count;
+              }
+            });
+          }
         }
 
         setStats({
