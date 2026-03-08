@@ -32,10 +32,10 @@ const projects = [
     tags: ["HTML", "CSS", "JavaScript"],
   },
   {
-    title: "Gaming Website",
-    description: "Modern gaming showcase with animated UI components",
+    title: "To-Do App",
+    description: "A full-stack task management application with authentication, CRUD operations, and a sleek dark-themed UI",
     image: project4,
-    tags: ["React", "Framer Motion"],
+    tags: ["Go", "Gin", "PostgreSQL", "JWT Auth"],
   },
   {
     title: "Animation Portfolio",
