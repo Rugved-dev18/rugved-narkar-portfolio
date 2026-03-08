@@ -27,6 +27,7 @@ const OpenSourceSection = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const fetchContributions = async () => {
@@ -210,63 +211,94 @@ const OpenSourceSection = () => {
             </div>
 
             {/* Contributions by repo */}
-            {Object.entries(repoGroups).map(([repo, items]) => (
-              <div
-                key={repo}
-                className="os-card glass rounded-2xl p-6 gradient-border hover:scale-[1.01] transition-transform duration-500"
-                style={{ boxShadow: "0 0 25px hsl(var(--primary) / 0.1), 0 0 60px hsl(var(--accent) / 0.05)" }}
-              >
-                <a
-                  href={items[0].repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 mb-5 group/repo"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-primary shrink-0">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                  <span className="text-lg font-medium text-foreground group-hover/repo:text-primary transition-colors">
-                    {repo}
-                  </span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground ml-1 group-hover/repo:text-primary transition-colors">
-                    <path d="M7 17l9.2-9.2M17 17V7H7" />
-                  </svg>
-                </a>
+            {(() => {
+              const entries = Object.entries(repoGroups);
+              const INITIAL_LIMIT = 2;
+              const visibleEntries = expanded ? entries : entries.slice(0, INITIAL_LIMIT);
+              const hasMore = entries.length > INITIAL_LIMIT;
 
-                <div className="space-y-3">
-                  {items.map((item, idx) => {
-                    const config = typeConfig[item.type];
+              return (
+                <>
+                  {visibleEntries.map(([repo, items]) => {
+                    const visibleItems = expanded ? items : items.slice(0, 3);
                     return (
-                      <a
-                        key={idx}
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-start gap-3 bg-secondary/40 rounded-xl p-4 border border-border/30 hover:border-primary/30 transition-all duration-300 group/item block"
+                      <div
+                        key={repo}
+                        className="os-card glass rounded-2xl p-6 gradient-border hover:scale-[1.01] transition-transform duration-500"
+                        style={{ boxShadow: "0 0 25px hsl(var(--primary) / 0.1), 0 0 60px hsl(var(--accent) / 0.05)" }}
                       >
-                        <span className="text-base mt-0.5 shrink-0">{config.icon}</span>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap mb-1">
-                            <span className={`text-[10px] px-2 py-0.5 rounded-full border ${config.badgeClass} font-light tracking-wider`}>
-                              {config.label}
-                            </span>
-                            <span className="text-[10px] px-2 py-0.5 rounded-full border border-border/40 text-muted-foreground font-light capitalize">
-                              {item.state}
-                            </span>
-                          </div>
-                          <p className="text-sm text-foreground group-hover/item:text-primary transition-colors line-clamp-2">
-                            {item.title}
-                          </p>
-                          <span className="text-[11px] text-muted-foreground font-light mt-1 block">
-                            {formatDate(item.createdAt)}
+                        <a
+                          href={items[0].repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 mb-5 group/repo"
+                        >
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="text-primary shrink-0">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                          </svg>
+                          <span className="text-lg font-medium text-foreground group-hover/repo:text-primary transition-colors">
+                            {repo}
                           </span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted-foreground ml-1 group-hover/repo:text-primary transition-colors">
+                            <path d="M7 17l9.2-9.2M17 17V7H7" />
+                          </svg>
+                        </a>
+
+                        <div className="space-y-3">
+                          {visibleItems.map((item, idx) => {
+                            const config = typeConfig[item.type];
+                            return (
+                              <a
+                                key={idx}
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-start gap-3 bg-secondary/40 rounded-xl p-4 border border-border/30 hover:border-primary/30 transition-all duration-300 group/item block"
+                              >
+                                <span className="text-base mt-0.5 shrink-0">{config.icon}</span>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                                    <span className={`text-[10px] px-2 py-0.5 rounded-full border ${config.badgeClass} font-light tracking-wider`}>
+                                      {config.label}
+                                    </span>
+                                    <span className="text-[10px] px-2 py-0.5 rounded-full border border-border/40 text-muted-foreground font-light capitalize">
+                                      {item.state}
+                                    </span>
+                                  </div>
+                                  <p className="text-sm text-foreground group-hover/item:text-primary transition-colors line-clamp-2">
+                                    {item.title}
+                                  </p>
+                                  <span className="text-[11px] text-muted-foreground font-light mt-1 block">
+                                    {formatDate(item.createdAt)}
+                                  </span>
+                                </div>
+                              </a>
+                            );
+                          })}
+                          {!expanded && items.length > 3 && (
+                            <p className="text-xs text-muted-foreground font-light text-center pt-1">
+                              +{items.length - 3} more contributions
+                            </p>
+                          )}
                         </div>
-                      </a>
+                      </div>
                     );
                   })}
-                </div>
-              </div>
-            ))}
+
+                  {hasMore && (
+                    <div className="flex justify-center pt-2">
+                      <button
+                        onClick={() => setExpanded(!expanded)}
+                        className="px-6 py-2.5 rounded-full border border-primary/30 text-primary text-sm font-light tracking-wider hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
+                        style={{ boxShadow: "0 0 15px hsl(var(--primary) / 0.1)" }}
+                      >
+                        {expanded ? "Show Less" : "See More"}
+                      </button>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         )}
       </div>
