@@ -13,6 +13,7 @@ interface GitHubStats {
   totalStars: number;
   topLanguages: { name: string; count: number; color: string }[];
   recentRepos: { name: string; description: string; stars: number; forks: number; language: string; url: string }[];
+  contributionMap: Record<string, number>;
 }
 
 const LANG_COLORS: Record<string, string> = {
