@@ -65,22 +65,33 @@ const HeroSection = () => {
           frameBorder="0"
           width="100%"
           height="100%"
-          className="absolute inset-0"
+          className="absolute inset-0 scale-110"
+          style={{ filter: "brightness(1.4) saturate(1.5) contrast(1.1)" }}
           title="3D Background" />
 
-        {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-background/60" />
+        {/* Lighter overlay — lets more of the 3D scene through */}
+        <div className="absolute inset-0 bg-background/35" />
+        {/* Vignette edges for depth */}
+        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 85%)' }} />
       </div>
 
-      {/* Light beams */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[700px] light-beam pointer-events-none z-[1]" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[400px] pointer-events-none z-[1]" style={{ background: 'radial-gradient(ellipse at bottom left, hsl(270 80% 65% / 0.08), transparent 70%)' }} />
+      {/* Vivid light beams */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[800px] pointer-events-none z-[1]"
+        style={{ background: 'radial-gradient(ellipse at top center, hsl(192 100% 50% / 0.15), hsl(270 80% 65% / 0.08) 40%, transparent 70%)' }} />
+      <div className="absolute bottom-0 left-0 w-[700px] h-[500px] pointer-events-none z-[1]"
+        style={{ background: 'radial-gradient(ellipse at bottom left, hsl(270 80% 65% / 0.12), transparent 70%)' }} />
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] pointer-events-none z-[1]"
+        style={{ background: 'radial-gradient(ellipse at center right, hsl(192 100% 50% / 0.1), transparent 70%)' }} />
 
-      {/* Floating orbs */}
-      <div className="hero-orb floating-orb w-80 h-80 -top-20 -right-20" />
-      <div className="hero-orb floating-orb-accent w-56 h-56 bottom-20 -left-10" />
-      <div className="hero-orb floating-orb w-40 h-40 top-1/3 right-1/4" />
-      <div className="hero-orb floating-orb-accent w-32 h-32 bottom-1/3 left-1/3" />
+      {/* Brighter floating orbs */}
+      <div className="hero-orb w-80 h-80 -top-20 -right-20 absolute rounded-full pointer-events-none z-[1]"
+        style={{ background: 'radial-gradient(circle, hsl(192 100% 50% / 0.2), hsl(192 100% 50% / 0.05) 50%, transparent 70%)', filter: 'blur(40px)' }} />
+      <div className="hero-orb w-56 h-56 bottom-20 -left-10 absolute rounded-full pointer-events-none z-[1]"
+        style={{ background: 'radial-gradient(circle, hsl(270 80% 65% / 0.25), hsl(270 80% 65% / 0.05) 50%, transparent 70%)', filter: 'blur(30px)' }} />
+      <div className="hero-orb w-40 h-40 top-1/3 right-1/4 absolute rounded-full pointer-events-none z-[1]"
+        style={{ background: 'radial-gradient(circle, hsl(320 80% 60% / 0.15), transparent 70%)', filter: 'blur(25px)' }} />
+      <div className="hero-orb w-32 h-32 bottom-1/3 left-1/3 absolute rounded-full pointer-events-none z-[1]"
+        style={{ background: 'radial-gradient(circle, hsl(192 100% 50% / 0.15), transparent 70%)', filter: 'blur(20px)' }} />
 
       {/* Social Icons - Left Side */}
       <div className="absolute left-6 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-5">
