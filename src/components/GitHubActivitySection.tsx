@@ -162,7 +162,7 @@ const GitHubActivitySection = () => {
 
         const user = await userRes.json();
         const repos = await reposRes.json();
-        const events = await eventsRes.json();
+        
 
         if (!Array.isArray(repos)) {
           setLoading(false);
