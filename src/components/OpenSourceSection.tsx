@@ -32,89 +32,90 @@ const OpenSourceSection = () => {
   useEffect(() => {
     const fetchContributions = async () => {
       try {
-        // Fetch multiple pages of events
-        const eventPages = await Promise.all(
-          [1, 2, 3].map((page) =>
-            fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100&page=${page}`)
-              .then((r) => r.json())
-              .catch(() => [])
-          )
-        );
-        const events = eventPages.flat().filter(Array.isArray(eventPages) ? () => true : () => false);
-        const allEvents = eventPages.flat();
+        // Use GitHub Search API for accurate PR and issue data
+        const [prsRes, issuesRes, eventsRes] = await Promise.all([
+          fetch(`https://api.github.com/search/issues?q=author:${GITHUB_USERNAME}+type:pr+-user:${GITHUB_USERNAME}&per_page=30&sort=created&order=desc`),
+          fetch(`https://api.github.com/search/issues?q=author:${GITHUB_USERNAME}+type:issue+-user:${GITHUB_USERNAME}&per_page=30&sort=created&order=desc`),
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100`).then(r => r.json()).catch(() => []),
+        ]);
+
+        const prsData = await prsRes.json();
+        const issuesData = await issuesRes.json();
 
         const contribs: Contribution[] = [];
         const seen = new Set<string>();
 
-        allEvents.forEach((e: any) => {
-          if (!e || !e.repo) return;
-          const isOwn = e.repo.name?.startsWith(`${GITHUB_USERNAME}/`);
-          if (isOwn) return; // Skip own repos
-
-          if (e.type === "PullRequestEvent" && e.payload?.pull_request) {
-            const pr = e.payload.pull_request;
+        // Add PRs from search
+        if (prsData.items && Array.isArray(prsData.items)) {
+          prsData.items.forEach((pr: any) => {
+            const repoUrl = pr.repository_url || "";
+            const repoName = repoUrl.replace("https://api.github.com/repos/", "");
             const key = `pr-${pr.html_url}`;
             if (!seen.has(key)) {
               seen.add(key);
               contribs.push({
                 type: "pr",
-                repo: e.repo.name,
-                repoUrl: `https://github.com/${e.repo.name}`,
+                repo: repoName,
+                repoUrl: `https://github.com/${repoName}`,
                 title: pr.title,
                 url: pr.html_url,
-                state: pr.merged ? "merged" : pr.state,
-                createdAt: e.created_at,
+                state: pr.pull_request?.merged_at ? "merged" : pr.state,
+                createdAt: pr.created_at,
               });
             }
-          } else if (e.type === "IssuesEvent" && e.payload?.issue) {
-            const issue = e.payload.issue;
+          });
+        }
+
+        // Add issues from search
+        if (issuesData.items && Array.isArray(issuesData.items)) {
+          issuesData.items.forEach((issue: any) => {
+            const repoUrl = issue.repository_url || "";
+            const repoName = repoUrl.replace("https://api.github.com/repos/", "");
             const key = `issue-${issue.html_url}`;
             if (!seen.has(key)) {
               seen.add(key);
               contribs.push({
                 type: "issue",
-                repo: e.repo.name,
-                repoUrl: `https://github.com/${e.repo.name}`,
+                repo: repoName,
+                repoUrl: `https://github.com/${repoName}`,
                 title: issue.title,
                 url: issue.html_url,
                 state: issue.state,
-                createdAt: e.created_at,
+                createdAt: issue.created_at,
               });
             }
-          } else if (e.type === "IssueCommentEvent" && e.payload?.comment) {
-            const comment = e.payload.comment;
-            const issue = e.payload.issue;
-            const key = `comment-${comment.html_url}`;
-            if (!seen.has(key)) {
-              seen.add(key);
-              contribs.push({
-                type: "comment",
-                repo: e.repo.name,
-                repoUrl: `https://github.com/${e.repo.name}`,
-                title: issue?.title || "Comment",
-                url: comment.html_url,
-                state: "commented",
-                createdAt: e.created_at,
-              });
-            }
-          } else if (e.type === "PullRequestReviewEvent" && e.payload?.pull_request) {
-            const pr = e.payload.pull_request;
-            const key = `review-${pr.html_url}`;
-            if (!seen.has(key)) {
-              seen.add(key);
-              contribs.push({
-                type: "pr",
-                repo: e.repo.name,
-                repoUrl: `https://github.com/${e.repo.name}`,
-                title: `Review: ${pr.title}`,
-                url: pr.html_url,
-                state: "reviewed",
-                createdAt: e.created_at,
-              });
-            }
-          }
-        });
+          });
+        }
 
+        // Add comments from events API (search API doesn't cover comments)
+        if (Array.isArray(eventsRes)) {
+          eventsRes.forEach((e: any) => {
+            if (!e || !e.repo) return;
+            const isOwn = e.repo.name?.startsWith(`${GITHUB_USERNAME}/`);
+            if (isOwn) return;
+
+            if (e.type === "IssueCommentEvent" && e.payload?.comment) {
+              const comment = e.payload.comment;
+              const issue = e.payload.issue;
+              const key = `comment-${comment.html_url}`;
+              if (!seen.has(key)) {
+                seen.add(key);
+                contribs.push({
+                  type: "comment",
+                  repo: e.repo.name,
+                  repoUrl: `https://github.com/${e.repo.name}`,
+                  title: issue?.title || "Comment",
+                  url: comment.html_url,
+                  state: "commented",
+                  createdAt: e.created_at,
+                });
+              }
+            }
+          });
+        }
+
+        // Sort by date
+        contribs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         setContributions(contribs);
       } catch (err) {
         console.error("Error fetching OS contributions:", err);
