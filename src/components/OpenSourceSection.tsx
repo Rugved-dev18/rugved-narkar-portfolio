@@ -27,6 +27,7 @@ const OpenSourceSection = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const fetchContributions = async () => {
