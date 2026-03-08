@@ -13,6 +13,7 @@ interface GitHubStats {
   totalStars: number;
   topLanguages: { name: string; count: number; color: string }[];
   recentRepos: { name: string; description: string; stars: number; forks: number; language: string; url: string }[];
+  contributionMap: Record<string, number>;
 }
 
 const LANG_COLORS: Record<string, string> = {
@@ -36,6 +37,100 @@ const LANG_COLORS: Record<string, string> = {
   "Jupyter Notebook": "#DA5B0B",
 };
 
+const ContributionGraph = ({ data }: { data: Record<string, number> }) => {
+  const days = Object.entries(data).sort(([a], [b]) => a.localeCompare(b));
+  const maxCount = Math.max(...days.map(([, c]) => c), 1);
+
+  const getColor = (count: number) => {
+    if (count === 0) return "hsl(var(--secondary))";
+    const intensity = Math.min(count / maxCount, 1);
+    if (intensity <= 0.25) return "hsl(192 100% 50% / 0.25)";
+    if (intensity <= 0.5) return "hsl(192 100% 50% / 0.45)";
+    if (intensity <= 0.75) return "hsl(192 100% 50% / 0.7)";
+    return "hsl(192 100% 50% / 1)";
+  };
+
+  // Group by weeks (columns of 7 days)
+  const weeks: [string, number][][] = [];
+  // Start from the first Sunday on or before the first day
+  const firstDate = new Date(days[0][0]);
+  const startDay = firstDate.getDay();
+  // Pad beginning
+  const padded: [string, number][] = [];
+  for (let i = 0; i < startDay; i++) {
+    padded.push(["", -1]);
+  }
+  padded.push(...days);
+
+  for (let i = 0; i < padded.length; i += 7) {
+    weeks.push(padded.slice(i, i + 7));
+  }
+
+  const monthLabels: { label: string; col: number }[] = [];
+  let lastMonth = "";
+  weeks.forEach((week, wi) => {
+    const validDay = week.find(([d]) => d !== "");
+    if (validDay) {
+      const m = new Date(validDay[0]).toLocaleString("en", { month: "short" });
+      if (m !== lastMonth) {
+        monthLabels.push({ label: m, col: wi });
+        lastMonth = m;
+      }
+    }
+  });
+
+  return (
+    <div className="overflow-x-auto">
+      <div className="min-w-[720px]">
+        {/* Month labels */}
+        <div className="flex mb-1 ml-8 text-[10px] text-muted-foreground font-light">
+          {monthLabels.map((m, i) => (
+            <span
+              key={i}
+              style={{ position: "absolute", left: `${m.col * 14 + 32}px` }}
+              className="relative"
+            >
+              {m.label}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-[3px] mt-5 relative">
+          {/* Day labels */}
+          <div className="flex flex-col gap-[3px] text-[10px] text-muted-foreground font-light pr-1 pt-0">
+            {["", "Mon", "", "Wed", "", "Fri", ""].map((d, i) => (
+              <div key={i} className="h-[11px] flex items-center">{d}</div>
+            ))}
+          </div>
+          {weeks.map((week, wi) => (
+            <div key={wi} className="flex flex-col gap-[3px]">
+              {week.map(([date, count], di) => (
+                <div
+                  key={di}
+                  className="w-[11px] h-[11px] rounded-[2px] transition-colors duration-200 hover:ring-1 hover:ring-primary/50"
+                  style={{ backgroundColor: count < 0 ? "transparent" : getColor(count) }}
+                  title={date ? `${date}: ${count} contribution${count !== 1 ? "s" : ""}` : ""}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        {/* Legend */}
+        <div className="flex items-center gap-2 mt-4 justify-end text-[10px] text-muted-foreground font-light">
+          <span>Less</span>
+          {[0, 0.25, 0.5, 0.75, 1].map((level, i) => (
+            <div
+              key={i}
+              className="w-[11px] h-[11px] rounded-[2px]"
+              style={{ backgroundColor: getColor(level === 0 ? 0 : Math.ceil(level * maxCount)) }}
+            />
+          ))}
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const GitHubActivitySection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -45,13 +140,15 @@ const GitHubActivitySection = () => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       try {
-        const [userRes, reposRes] = await Promise.all([
+        const [userRes, reposRes, eventsRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`),
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=100`),
         ]);
 
         const user = await userRes.json();
         const repos = await reposRes.json();
+        const events = await eventsRes.json();
 
         if (!Array.isArray(repos)) {
           setLoading(false);
@@ -60,7 +157,6 @@ const GitHubActivitySection = () => {
 
         const totalStars = repos.reduce((sum: number, r: any) => sum + (r.stargazers_count || 0), 0);
 
-        // Count languages
         const langMap: Record<string, number> = {};
         repos.forEach((r: any) => {
           if (r.language) {
@@ -88,6 +184,25 @@ const GitHubActivitySection = () => {
             url: r.html_url,
           }));
 
+        // Build contribution map from events
+        const contributionMap: Record<string, number> = {};
+        // Initialize last 365 days
+        const today = new Date();
+        for (let i = 364; i >= 0; i--) {
+          const d = new Date(today);
+          d.setDate(d.getDate() - i);
+          const key = d.toISOString().split("T")[0];
+          contributionMap[key] = 0;
+        }
+        if (Array.isArray(events)) {
+          events.forEach((e: any) => {
+            const day = e.created_at?.split("T")[0];
+            if (day && day in contributionMap) {
+              contributionMap[day] = (contributionMap[day] || 0) + 1;
+            }
+          });
+        }
+
         setStats({
           publicRepos: user.public_repos,
           followers: user.followers,
@@ -95,6 +210,7 @@ const GitHubActivitySection = () => {
           totalStars,
           topLanguages,
           recentRepos,
+          contributionMap,
         });
       } catch (err) {
         console.error("GitHub API error:", err);
@@ -280,6 +396,21 @@ const GitHubActivitySection = () => {
                   </svg>
                 </a>
               </div>
+            </div>
+
+            {/* Contribution Graph — full width */}
+            <div
+              className="github-card glass rounded-2xl p-6 gradient-border group md:col-span-2 lg:col-span-3 hover:scale-[1.01] transition-transform duration-500"
+              style={{ boxShadow: "0 0 25px hsl(var(--primary) / 0.1), 0 0 60px hsl(var(--accent) / 0.05)" }}
+            >
+              <h3 className="text-lg font-light mb-6 flex items-center gap-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M3 9h18M9 3v18" />
+                </svg>
+                <span className="gradient-text font-medium">Contribution Graph</span>
+              </h3>
+              <ContributionGraph data={stats.contributionMap} />
             </div>
 
             {/* Recent Repositories — full width */}
