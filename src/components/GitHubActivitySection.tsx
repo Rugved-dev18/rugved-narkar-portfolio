@@ -304,6 +304,21 @@ const GitHubActivitySection = () => {
               </div>
             </div>
 
+            {/* Contribution Graph — full width */}
+            <div
+              className="github-card glass rounded-2xl p-6 gradient-border group md:col-span-2 lg:col-span-3 hover:scale-[1.01] transition-transform duration-500"
+              style={{ boxShadow: "0 0 25px hsl(var(--primary) / 0.1), 0 0 60px hsl(var(--accent) / 0.05)" }}
+            >
+              <h3 className="text-lg font-light mb-6 flex items-center gap-2">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M3 9h18M9 3v18" />
+                </svg>
+                <span className="gradient-text font-medium">Contribution Graph</span>
+              </h3>
+              <ContributionGraph data={stats.contributionMap} />
+            </div>
+
             {/* Recent Repositories — full width */}
             <div
               className="github-card glass rounded-2xl p-6 gradient-border group md:col-span-2 lg:col-span-3 hover:scale-[1.01] transition-transform duration-500"
