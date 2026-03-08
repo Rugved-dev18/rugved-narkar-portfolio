@@ -6,16 +6,25 @@ import profileImg from "@/assets/profile.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-{ name: "HTML5", icon: "🌐" },
-{ name: "CSS3", icon: "🎨" },
-{ name: "JavaScript", icon: "⚡" },
-{ name: "Go", icon: "🐹" },
-{ name: "MongoDB", icon: "🍃" },
-{ name: "Vercel", icon: "▲" },
-{ name: "Firebase", icon: "🔥" },
-{ name: "Markdown", icon: "📝" },
-{ name: "PowerShell", icon: "💻" },
-{ name: "TypeScript", icon: "🔷" }];
+  { name: "HTML5", icon: "🌐" },
+  { name: "CSS3", icon: "🎨" },
+  { name: "JavaScript", icon: "⚡" },
+  { name: "TypeScript", icon: "🔷" },
+  { name: "Go", icon: "🐹" },
+  { name: "MongoDB", icon: "🍃" },
+  { name: "MySQL", icon: "🐬" },
+  { name: "Git", icon: "🔀" },
+  { name: "GitHub", icon: "🐙" },
+  { name: "Bash", icon: "🖥️" },
+  { name: "VS Code", icon: "📘" },
+  { name: "Figma", icon: "🎯" },
+  { name: "Photoshop", icon: "🖌️" },
+  { name: "Hugging Face", icon: "🤗" },
+  { name: "Vercel", icon: "▲" },
+  { name: "Firebase", icon: "🔥" },
+  { name: "Markdown", icon: "📝" },
+  { name: "PowerShell", icon: "💻" },
+];
 
 
 const AboutSection = () => {
