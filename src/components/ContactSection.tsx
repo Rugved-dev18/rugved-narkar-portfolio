@@ -60,7 +60,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="relative py-24 md:py-32 px-6">
+    <section id="contact" ref={sectionRef} className="relative py-16 md:py-32 px-4 sm:px-6 overflow-hidden">
       <div className="floating-orb w-56 h-56 top-20 right-0" />
       <div className="floating-orb-accent w-40 h-40 bottom-20 -left-10" />
       <div className="section-divider absolute top-0 left-1/4 right-1/4" />

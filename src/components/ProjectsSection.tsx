@@ -87,7 +87,7 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="relative py-24 md:py-32 px-6">
+    <section id="projects" ref={sectionRef} className="relative py-16 md:py-32 px-4 sm:px-6 overflow-hidden">
       <div className="floating-orb-accent w-64 h-64 top-10 -left-20" />
       <div className="floating-orb w-48 h-48 bottom-10 right-0" />
       <div className="section-divider absolute top-0 left-1/4 right-1/4" />
