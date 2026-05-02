@@ -127,16 +127,18 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
         <p
           ref={welcomeRef}
-          className="text-[10px] uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-extrabold font-sans md:text-sm">
+          className="uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-extrabold font-sans"
+          style={{ fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)" }}>
 
           Welcome To My World
         </p>
         <h1
           ref={headlineRef}
-          className="text-3xl sm:text-5xl lg:text-7xl tracking-tight leading-[1.1] mb-6 opacity-0 font-bold md:text-4xl">
+          className="tracking-tight leading-[1.1] mb-6 opacity-0 font-bold break-words"
+          style={{ fontSize: "clamp(1.875rem, 6vw, 4.5rem)" }}>
 
           Hi, I'm{" "}
           <span className="gradient-text font-semibold">Rugved</span>
@@ -146,7 +148,8 @@ const HeroSection = () => {
 
         <p
           ref={subtitleRef}
-          className="text-base md:text-lg text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0 text-center">
+          className="text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0 text-center"
+          style={{ fontSize: "clamp(0.875rem, 2vw, 1.125rem)" }}>
 
           A passionate developer focused on building scalable backend systems and impactful web applications. I enjoy working with Go, exploring open source, and solving real-world problems through technology. Currently sharpening my skills while contributing in Open Source.
         </p>
