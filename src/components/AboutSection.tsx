@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import profileImg from "@/assets/profile.png";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,6 +33,7 @@ const AboutSection = () => {
   const imageRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -108,18 +110,21 @@ const AboutSection = () => {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-24 md:py-32 px-6">
+      className="relative py-16 md:py-32 px-4 sm:px-6 overflow-hidden">
 
-      {/* Spline 3D Background */}
+      {/* Spline 3D Background — desktop only */}
       <div className="absolute inset-0 z-0">
-        <iframe
-          src="https://my.spline.design/boxeshover-SWORFSeQLNazFo81kGbdezdd/"
-          frameBorder="0"
-          width="100%"
-          height="100%"
-          className="absolute inset-0"
-          title="3D Background"
-        />
+        {!isMobile && (
+          <iframe
+            src="https://my.spline.design/boxeshover-SWORFSeQLNazFo81kGbdezdd/"
+            frameBorder="0"
+            width="100%"
+            height="100%"
+            loading="lazy"
+            className="absolute inset-0"
+            title="3D Background"
+          />
+        )}
         <div className="absolute inset-0 bg-background/60" />
       </div>
 
@@ -136,6 +141,8 @@ const AboutSection = () => {
               <img
                 src={profileImg}
                 alt="Rugved - Web Developer"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-top" />
 
             </div>
@@ -159,7 +166,7 @@ const AboutSection = () => {
           <h3 className="text-sm font-medium tracking-widest text-primary/70 uppercase mb-4">
             Tech Stack
           </h3>
-          <div ref={skillsRef} className="grid grid-cols-3 gap-3">
+          <div ref={skillsRef} className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {skills.map((skill) =>
             <div
               key={skill.name}

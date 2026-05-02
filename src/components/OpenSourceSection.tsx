@@ -163,7 +163,7 @@ const OpenSourceSection = () => {
   }, {});
 
   return (
-    <section id="opensource" ref={sectionRef} className="relative py-24 md:py-32 px-6">
+    <section id="opensource" ref={sectionRef} className="relative py-16 md:py-32 px-4 sm:px-6 overflow-hidden">
       <div className="floating-orb-accent w-56 h-56 top-20 -right-10" />
       <div className="floating-orb w-40 h-40 bottom-20 -left-10" />
       <div className="section-divider absolute top-0 left-1/4 right-1/4" />

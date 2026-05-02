@@ -256,7 +256,7 @@ const GitHubActivitySection = () => {
   const totalLangCount = stats?.topLanguages.reduce((s, l) => s + l.count, 0) || 1;
 
   return (
-    <section id="github" ref={sectionRef} className="relative py-24 md:py-32 px-6">
+    <section id="github" ref={sectionRef} className="relative py-16 md:py-32 px-4 sm:px-6 overflow-hidden">
       <div className="floating-orb w-64 h-64 -top-10 -left-20" />
       <div className="floating-orb-accent w-48 h-48 bottom-10 right-0" />
       <div className="section-divider absolute top-0 left-1/4 right-1/4" />
