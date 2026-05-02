@@ -58,22 +58,23 @@ const HeroSection = () => {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      className="relative min-h-screen flex items-center justify-center overflow-hidden w-full max-w-[100vw]">
 
-      {/* Spline 3D Background */}
+      {/* Spline 3D Background — desktop only for performance */}
       <div className="absolute inset-0 z-0">
-        <iframe
-          src="https://my.spline.design/orb-2YMkvpRm5jgZz0zuRKV4A8F8/"
-          frameBorder="0"
-          width="100%"
-          height="100%"
-          className="absolute inset-0 scale-110"
-          style={{ filter: "brightness(1.4) saturate(1.5) contrast(1.1)" }}
-          title="3D Background" />
+        {!isMobile && (
+          <iframe
+            src="https://my.spline.design/orb-2YMkvpRm5jgZz0zuRKV4A8F8/"
+            frameBorder="0"
+            width="100%"
+            height="100%"
+            loading="lazy"
+            className="absolute inset-0 scale-110"
+            style={{ filter: "brightness(1.4) saturate(1.5) contrast(1.1)" }}
+            title="3D Background" />
+        )}
 
-        {/* Lighter overlay — lets more of the 3D scene through */}
         <div className="absolute inset-0 bg-background/35" />
-        {/* Vignette edges for depth */}
         <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 85%)' }} />
       </div>
 
