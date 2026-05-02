@@ -154,7 +154,7 @@ const HeroSection = () => {
           A passionate developer focused on building scalable backend systems and impactful web applications. I enjoy working with Go, exploring open source, and solving real-world problems through technology. Currently sharpening my skills while contributing in Open Source.
         </p>
 
-        <div ref={ctaRef} className="flex items-center justify-center gap-4 opacity-0">
+        <div ref={ctaRef} className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 opacity-0">
           <a
             href="#contact"
             onClick={(e) => {
