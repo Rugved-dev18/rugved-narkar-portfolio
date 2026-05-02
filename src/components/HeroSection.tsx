@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -7,6 +8,7 @@ const HeroSection = () => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.3 });
