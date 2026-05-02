@@ -143,6 +143,38 @@
     opacity: 0.2;
   }
 
+  /* Mobile performance: reduce expensive blurs and shadows */
+  @media (max-width: 768px) {
+    .glass,
+    .glass-strong {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      background-color: hsl(var(--card) / 0.85);
+    }
+    .floating-orb,
+    .floating-orb-accent {
+      filter: blur(40px);
+      opacity: 0.15;
+    }
+    .glow-box,
+    .glow-box-accent,
+    .glow-text {
+      box-shadow: none;
+      text-shadow: 0 0 12px hsl(var(--primary) / 0.4);
+    }
+  }
+
+  /* Honor reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
   .section-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), hsl(var(--accent) / 0.2), transparent);
