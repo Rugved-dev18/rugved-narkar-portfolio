@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import ReducedMotionToggle from "./ReducedMotionToggle";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -72,6 +73,7 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          <ReducedMotionToggle />
           <a
             href="#contact"
             onClick={(e) => {
@@ -82,6 +84,11 @@ const Navbar = () => {
           >
             Hire Me
           </a>
+        </div>
+
+        {/* Mobile: motion toggle + hamburger */}
+        <div className="md:hidden flex items-center gap-2">
+          <ReducedMotionToggle />
         </div>
 
         {/* Mobile hamburger */}
