@@ -89,30 +89,28 @@ const Navbar = () => {
         {/* Mobile: motion toggle + hamburger */}
         <div className="md:hidden flex items-center gap-2">
           <ReducedMotionToggle />
+          <button
+            className="flex flex-col gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`w-6 h-[1.5px] bg-foreground transition-all duration-300 ${
+                menuOpen ? "rotate-45 translate-y-[5px]" : ""
+              }`}
+            />
+            <span
+              className={`w-6 h-[1.5px] bg-foreground transition-all duration-300 ${
+                menuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`w-6 h-[1.5px] bg-foreground transition-all duration-300 ${
+                menuOpen ? "-rotate-45 -translate-y-[5px]" : ""
+              }`}
+            />
+          </button>
         </div>
-
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className={`w-6 h-[1.5px] bg-foreground transition-all duration-300 ${
-              menuOpen ? "rotate-45 translate-y-[5px]" : ""
-            }`}
-          />
-          <span
-            className={`w-6 h-[1.5px] bg-foreground transition-all duration-300 ${
-              menuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`w-6 h-[1.5px] bg-foreground transition-all duration-300 ${
-              menuOpen ? "-rotate-45 -translate-y-[5px]" : ""
-            }`}
-          />
-        </button>
       </div>
 
       {/* Mobile menu */}
