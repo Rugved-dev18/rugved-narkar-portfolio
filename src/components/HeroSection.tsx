@@ -8,9 +8,18 @@ const HeroSection = () => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(
+        [welcomeRef.current, headlineRef.current, subtitleRef.current, ctaRef.current, taglineRef.current],
+        { opacity: 1, y: 0, scale: 1, filter: "none" }
+      );
+      return;
+    }
+
     const tl = gsap.timeline({ delay: 0.3 });
 
     tl.fromTo(
@@ -35,6 +44,12 @@ const HeroSection = () => {
       { opacity: 0, scale: 0.9 },
       { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" },
       "-=0.4"
+    ).
+    fromTo(
+      taglineRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
+      "-=0.3"
     );
 
     // Floating orbs
@@ -128,16 +143,21 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
+        {/* Soft dark backdrop so text stays readable over the 3D scene */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-8 -bottom-8"
+          style={{ background: 'radial-gradient(ellipse at center, hsl(var(--background) / 0.55) 0%, hsl(var(--background) / 0.3) 45%, transparent 75%)' }} />
         <p
           ref={welcomeRef}
-          className="uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-extrabold font-sans"
+          className="relative uppercase tracking-[0.3em] text-primary mb-4 opacity-0 glow-text font-extrabold font-sans"
           style={{ fontSize: "clamp(0.625rem, 1.5vw, 0.875rem)" }}>
 
-          Welcome To My World
+          Software Engineering Intern · Pune
         </p>
         <h1
           ref={headlineRef}
-          className="tracking-tight leading-[1.1] mb-6 opacity-0 font-bold break-words"
+          className="relative tracking-tight leading-[1.1] mb-6 opacity-0 font-bold break-words"
           style={{ fontSize: "clamp(1.875rem, 6vw, 4.5rem)" }}>
 
           Hi, I'm{" "}
