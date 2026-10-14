@@ -163,25 +163,26 @@ const HeroSection = () => {
           Hi, I'm{" "}
           <span className="gradient-text font-semibold">Rugved</span>
           <br />
-          <span className="text-foreground/90">Software Developer</span>
+          <span className="text-foreground/90">Backend Engineer</span>
         </h1>
 
         <p
           ref={subtitleRef}
-          className="text-muted-foreground font-light max-w-xl mx-auto mb-10 opacity-0 text-center"
+          className="relative text-muted-foreground font-light max-w-[55ch] mx-auto mb-10 opacity-0 text-center"
           style={{ fontSize: "clamp(0.875rem, 2vw, 1.125rem)" }}>
 
-          A passionate developer focused on building scalable backend systems and impactful web applications. I enjoy working with Go, exploring open source, and solving real-world problems through technology. Currently sharpening my skills while contributing in Open Source.
+          I build Python and Go backends and AI-powered systems, and I enjoy working with the people who use them.
         </p>
 
-        <div ref={ctaRef} className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 opacity-0">
+        <div ref={ctaRef} className="relative flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 opacity-0 w-full">
           <a
-            href="#contact"
+            href="#projects"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+              const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              document.querySelector("#projects")?.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
             }}
-            className="inline-block px-8 py-3.5 rounded-full font-medium text-xs tracking-wide text-primary-foreground"
+            className="inline-block w-full max-w-xs sm:w-auto px-8 py-3.5 rounded-full font-medium text-xs tracking-wide text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             style={{
               background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)))',
               boxShadow: '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)',
@@ -190,19 +191,25 @@ const HeroSection = () => {
             onMouseEnter={(e) => {e.currentTarget.style.boxShadow = '0 0 50px hsl(var(--primary) / 0.6), 0 0 100px hsl(var(--accent) / 0.3)';}}
             onMouseLeave={(e) => {e.currentTarget.style.boxShadow = '0 0 30px hsl(var(--primary) / 0.4), 0 0 60px hsl(var(--primary) / 0.2)';}}
           >
-            Hire Me
-          </a>
-          <a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="inline-block px-8 py-3.5 rounded-full font-medium text-xs tracking-wide border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-300"
-          >
             View My Work
           </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block w-full max-w-xs sm:w-auto px-8 py-3.5 rounded-full font-medium text-xs tracking-wide border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Download Resume
+          </a>
         </div>
+
+        <p
+          ref={taglineRef}
+          className="relative mt-5 text-muted-foreground tracking-wide opacity-0"
+          style={{ fontSize: "clamp(0.75rem, 1.5vw, 0.875rem)" }}>
+
+          Turning complex data into decisions people can act on
+        </p>
       </div>
     </section>);
 
