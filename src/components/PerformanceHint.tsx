@@ -40,6 +40,7 @@ const PerformanceHint = () => {
 
   return (
     <div
+      data-testid="perf-hint"
       role="status"
       aria-live="polite"
       className="fixed top-20 right-3 sm:right-6 z-40 max-w-[17rem] glass rounded-xl px-4 py-3 pr-8 text-left"
